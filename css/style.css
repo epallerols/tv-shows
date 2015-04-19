@@ -1,0 +1,104 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #555;
+}
+
+.inner {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.hide {
+    display: none;
+}
+
+.left {
+    float: left;
+}
+
+.clear {
+    width: 100%;
+    overflow: auto;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    width: 100%;
+    margin: 1.0em 0;
+    height: 2.0em;
+    line-height: 2.0em;
+    font-size: 1.2em;
+    padding-left: 1.0em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+small {
+    display: block;
+    margin-top: 2.0em;
+    font-style: italic;
+}
+
+/**
+ * Table styles
+ */
+table.mytable {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+}
+
+.mytable a {
+    color: #333;
+}
+
+.mytable thead td {
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}
+
+.mytable td {
+    padding: 8px;
+    text-align: center;
+}
+
+.mytable td:first-child {
+    text-align: left;
+}
+
+.mytable tbody tr:nth-child(even) td {
+    background: #eee;
+}
+
+.mytable tfoot td {
+    border-top: 1px solid #ccc;
+    font-size: 0.8em;
+}
+
+.mytable tfoot td a:first-child {
+    margin-right: 1.0em;
+}
+
+/**
+ * Synopsis styles
+ */
+.tvshow p {
+    margin-bottom: 1.0em;
+    text-align: justify;
+}
+
+.tvshow-img {
+    float: left;
+    margin: 0 1.0em 1.0em 0;
+}
+
+.tvshow-content {
+    float: left;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TV Shows database</title>
+        <meta name="description" content="Simple TV shows search page.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/style.min.css">
+    </head>
+    <body>
+        <div class="inner">
+            <h1>TV Shows</h1>
+            <form method="get" action="/search" id="search">
+                <input name="q" type="text" size="40" placeholder="Search..."/>
+            </form>
+            <table id="elements" class="mytable" cellpadding="0" cellspacing="0">
+                <thead class="hide">
+                    <tr>
+                        <td>TV Show</td>
+                        <td>Rate</td>
+                        <td>Popularity</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3">No data loaded</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>
+                            <a href="#prev" data-direction="prev" class="paging" alt="Previous page">Prev</a>
+                            <a href="#next" data-direction="next" class="paging" alt="Next page">Next</a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div id="synopsis" class="clear hide tvshow"></div>
+            <a href="#back" id="back" class="clear hide">Back to shows list</a>
+            <small>This page uses The Movie Database API (<a href="https://www.themoviedb.org" title="TheMovieDB">https://www.themoviedb.org</a>) as  a source for gathering all TV Shows information.</small>
+        </div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/tvshows.min.js"></script>
+    </body>
+</html>

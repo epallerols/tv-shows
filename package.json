@@ -1,0 +1,12 @@
+{
+  "name": "tv-shows-database",
+  "version": "0.1.0",
+  "author": "Enric Pallerols Cat <enric@pallerols.cat>",
+  "description": "TV Shows Database",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-watch": "*"
+  }
+}
