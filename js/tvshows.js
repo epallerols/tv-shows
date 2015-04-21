@@ -1,20 +1,20 @@
-var myNamespace = (function ($) {
-    "use strict";
+(function ($) {
+    'use strict';
 
     // useful page objects
     var $tableObj, $synopsisObj, $infoObj, $backObj, $formObj;
 
     // themoviedb.org api parameters
     // API documentation can be found at: http://docs.themoviedb.apiary.io
-    var api_key = "YOUR_API_KEY";
-    var api_url = "http://api.themoviedb.org/3";
-    var img_size = "w154"; // ["w92","w154","w185","w342","w500","original"];
-    var img_url = "http://image.tmdb.org/t/p/" + img_size;
+    var api_key = 'YOUR_API_KEY';
+    var api_url = 'http://api.themoviedb.org/3';
+    var img_size = 'w154'; // ['w92','w154','w185','w342','w500','original'];
+    var img_url = 'http://image.tmdb.org/t/p/' + img_size;
     var urls = {
-        search: api_url + "/search/tv",
-        popular:  api_url + "/tv/popular",
-        top_rated:  api_url + "/tv/top_rated",
-        tv_show: api_url + "/tv/"
+        search: api_url + '/search/tv',
+        popular:  api_url + '/tv/popular',
+        top_rated:  api_url + '/tv/top_rated',
+        tv_show: api_url + '/tv/'
     };
 
     // control the current page displayed and the total pages available
@@ -44,7 +44,7 @@ var myNamespace = (function ($) {
         beforeSend: showLoading,
         success: displayShows,
         error: requestError,
-        dataType: "jsonp",
+        dataType: 'jsonp',
         cache: true,
         timeout: 5000 // workaround for cross-domain request errors
     };
@@ -79,7 +79,7 @@ var myNamespace = (function ($) {
             }
 
             // validate received data
-            if (data === undefined || !(data.createdby instanceof Array) ||
+            if (data === undefined || !(data.created_by instanceof Array) ||
                     !(data.genres instanceof Array)) {
                 return;
             }
@@ -137,7 +137,7 @@ var myNamespace = (function ($) {
                 success: this.display,
                 error: this._displayError,
                 context: this,
-                dataType: "jsonp",
+                dataType: 'jsonp',
                 cache: true,
                 timeout: 5000 // workaround for cross-domain request errors
             });
@@ -226,13 +226,13 @@ var myNamespace = (function ($) {
 
         // detect failures
         if (data === undefined || !(data.results instanceof Array)) {
-            return requestError("Invalid response received");
+            return requestError('Invalid response received');
         }
 
         total_received = data.results.length;
 
         if (total_received === 0)
-            return requestError("No elements found");
+            return requestError('No elements found');
 
         $tableObj.find('thead, tfoot').show();
         $.map(data.results, function (item) {
@@ -266,7 +266,7 @@ var myNamespace = (function ($) {
         }
 
         req_opts.url = urls.search;
-        req_opts.data = {api_key: api_key, query: q, search_type: "ngram"};
+        req_opts.data = {api_key: api_key, query: q, search_type: 'ngram'};
         $.ajax(req_opts);
     }
 
