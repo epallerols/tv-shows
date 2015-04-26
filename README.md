@@ -7,14 +7,6 @@ This project was created in 6 hours on December 2013 as part of an assignment fo
 
 # Installation
 
-Install npm dependencies by typing the following in a terminal:
-
-```
-$ npm install
-```
-
-Compile and build the application:
-
 1) Create a TMDB account and generate a new API Key. More information can be
 found in [here](http://docs.themoviedb.apiary.io/)
 
