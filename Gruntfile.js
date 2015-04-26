@@ -1,38 +1,49 @@
 module.exports = function(grunt) {
-
-  // Project configuration.
-  grunt.initConfig({
-    uglify: {
-      tvshows: {
-        files: {
-          'app/scripts/main.min.js': 'app/scripts/main.js'
+    grunt.initConfig({
+        clean: ['build'],
+        copy: {
+            html: {
+                src: 'app/index.html',
+                dest: 'build/index.html'
+            }
+        },
+        uglify: {
+            scripts: {
+                files: {
+                    'build/scripts/main.min.js': 'app/scripts/main.js'
+                }
+            }
+        },
+        cssmin: {
+            styles: {
+                files: {
+                    'build/styles/styles.min.css': 'app/styles/styles.css'
+                }
+            }
+        },
+        watch: {
+            html: {
+                files: ['app/index.html'],
+                tasks: ['copy:html']
+            },
+            scritps: {
+                files: ['app/scripts/main.js'],
+                tasks: ['uglify:scripts']
+            },
+            styles: {
+                files: ['app/styles/styles.css'],
+                tasks: ['cssmin:styles']
+            }
         }
-      }
-    },
-    cssmin: {
-      style: {
-        files: {
-         'app/styles/styles.min.css': 'app/styles/styles.css'
-        }
-      }
-    },
-    watch: {
-      js: {
-        files: ['app/scripts/main.js'],
-        tasks: ['uglify:tvshows']
-      },
-      css: {
-        files: ['app/styles/styles.css'],
-        tasks: ['cssmin:style']
-      }
-    }
-  });
+    });
 
-  // Load npm tasks.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+    // Load npm tasks.
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
-  // Default task(s).
-  grunt.registerTask('default', ['uglify', 'cssmin']);
+    // Default task(s).
+    grunt.registerTask('default', ['clean', 'copy', 'uglify', 'cssmin']);
 };
