@@ -1,49 +1,43 @@
 module.exports = function(grunt) {
+    require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
-        clean: ['build'],
+        clean: {
+            pre: ['build', '.tmp'],
+            post: ['.tmp']
+        },
         copy: {
             html: {
                 src: 'app/index.html',
                 dest: 'build/index.html'
             }
         },
-        uglify: {
-            scripts: {
-                files: {
-                    'build/scripts/main.min.js': 'app/scripts/main.js'
-                }
-            }
-        },
-        cssmin: {
-            styles: {
-                files: {
-                    'build/styles/styles.min.css': 'app/styles/styles.css'
-                }
-            }
-        },
-        watch: {
+        wiredep: {
             html: {
-                files: ['app/index.html'],
-                tasks: ['copy:html']
-            },
-            scritps: {
-                files: ['app/scripts/main.js'],
-                tasks: ['uglify:scripts']
-            },
-            styles: {
-                files: ['app/styles/styles.css'],
-                tasks: ['cssmin:styles']
+                src: 'build/index.html'
             }
+        },
+        useminPrepare: {
+            html: 'build/index.html',
+            options: {
+                root: 'app',
+                dest: 'build'
+            }
+        },
+        usemin: {
+            html: 'build/index.html'
         }
     });
 
-    // Load npm tasks.
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
-    // Default task(s).
-    grunt.registerTask('default', ['clean', 'copy', 'uglify', 'cssmin']);
+    grunt.registerTask('default', [
+        'clean:pre',
+        'copy',
+        'wiredep',
+        'useminPrepare',
+        'concat',
+        'cssmin',
+        'uglify',
+        'usemin',
+        'clean:post',
+    ]);
 };
