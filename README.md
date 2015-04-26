@@ -21,10 +21,13 @@ found in [here](http://docs.themoviedb.apiary.io/)
 2) Open `js/tvshows.js` and modify the `api_key` variable.
 
 ````js
-var api_key = "YOUR_API_KEY";
+var api_key = 'YOUR_API_KEY';
 ````
 
-3) Execute the following command in a terminal to build the application:
+3) Execute the following commands in a terminal to build the application:
 ```
+$ npm install
+$ bower install
 $ grunt
 ```
+4) Open `build/index.html` with your preferred browser.
