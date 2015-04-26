@@ -3,38 +3,36 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     uglify: {
-      "tvshows": {
+      tvshows: {
         files: {
-          'js/tvshows.min.js': 'js/tvshows.js'
+          'app/scripts/main.min.js': 'app/scripts/main.js'
         }
       }
     },
     cssmin: {
-      "style": {
+      style: {
         files: {
-         'css/style.min.css': 'css/style.css'
+         'app/styles/styles.min.css': 'app/styles/styles.css'
         }
       }
     },
     watch: {
-      "js": {
-        files: ['js/tvshows.js'],
+      js: {
+        files: ['app/scripts/main.js'],
         tasks: ['uglify:tvshows']
       },
-      "css": {
-        files: ['css/style.css'],
+      css: {
+        files: ['app/styles/styles.css'],
         tasks: ['cssmin:style']
       }
-      
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
+  // Load npm tasks.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
   grunt.registerTask('default', ['uglify', 'cssmin']);
-
 };
