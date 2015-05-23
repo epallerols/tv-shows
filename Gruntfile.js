@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
+    grunt.loadNpmTasks('grunt-autoprefixer');
 
     grunt.initConfig({
         clean: {
@@ -15,6 +16,15 @@ module.exports = function(grunt) {
         wiredep: {
             html: {
                 src: 'build/index.html'
+            }
+        },
+        autoprefixer: {
+            css: {
+                src: '.tmp/concat/styles/styles.min.css',
+                options: {
+                    browsers: ['last 2 versions', 'ie 9'],
+                    cascade: false
+                }
             }
         },
         useminPrepare: {
@@ -35,9 +45,10 @@ module.exports = function(grunt) {
         'wiredep',
         'useminPrepare',
         'concat',
+        'autoprefixer',
         'cssmin',
         'uglify',
         'usemin',
-        'clean:post',
+        'clean:post'
     ]);
 };
