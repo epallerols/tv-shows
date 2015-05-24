@@ -1,0 +1,36 @@
+.mytable {
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.mytable a {
+    color: #333;
+}
+
+.mytable thead td {
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+}
+
+.mytable td {
+    padding: 8px;
+    text-align: center;
+}
+
+.mytable td:first-child {
+    text-align: left;
+}
+
+.mytable tbody tr:nth-child(even) td {
+    background: #eee;
+}
+
+.mytable tfoot td {
+    border-top: 1px solid #ccc;
+    font-size: 0.8em;
+}
+
+.mytable tfoot td a:first-child {
+    margin-right: 1.0em;
+}
