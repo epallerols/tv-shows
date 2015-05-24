@@ -3,7 +3,7 @@ TV Shows Database
 
 Single page app that allows the user to search for a TV show and display its synopsis. All data is extracted from [The Movie Database API](https://www.themoviedb.org).
 
-This project was created in 6 hours on December 2013 as part of an assignment for an interview.
+The initial commit contains the code created in 6 hours on December 2013 as part of an assignment for an interview. Nowadays, I use this repository as a playground.
 
 # Installation
 
