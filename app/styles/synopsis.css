@@ -1,13 +1,29 @@
-.tvshow p {
+.tvshow-img {
     margin-bottom: 1.0em;
+}
+
+.tvshow p {
+    margin-top: 1.0em;
     text-align: justify;
 }
 
-.tvshow-img {
-    float: left;
-    margin: 0 1.0em 1.0em 0;
+.tvshow p:first-child {
+    margin-top: 0;
 }
 
-.tvshow-content {
-    float: left;
+.tvshow-action-back {
+    display: inline-block;
+    margin-top: 1.0em;
+}
+
+@media only screen and (min-width: 668px) {
+    .tvshow-img {
+        float: left;
+        margin-right: 1.0em;
+        margin-bottom: 0;
+    }
+
+    .tvshow-content {
+        float: left;
+    }
 }
