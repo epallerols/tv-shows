@@ -1,5 +1,5 @@
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #555;
 }
 
@@ -34,6 +34,10 @@ input {
     font-size: 1.2em;
     padding-left: 1.0em;
     box-sizing: border-box;
+}
+
+dl {
+    margin: 0;
 }
 
 small {

@@ -1,5 +1,5 @@
 .tvshow-img {
-    margin-bottom: 1.0em;
+    margin: 0 1.0em 1.0em 0;
 }
 
 .tvshow p {
@@ -11,6 +11,31 @@
     margin-top: 0;
 }
 
+.tvshow dt {
+    display: inline-block;
+    font-style: italic;
+    margin: 1.0em 0 0;
+}
+
+.tvshow dt:first-child {
+    margin-top: 0;
+}
+
+.tvshow dd {
+    display: inline;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.tvshow dd:before {
+    content: ': ';
+}
+
+.tvshow dd:after {
+    content: '\A';
+    white-space: pre;
+}
+
 .tvshow-action-back {
     display: inline-block;
     margin-top: 1.0em;
@@ -19,11 +44,6 @@
 @media only screen and (min-width: 668px) {
     .tvshow-img {
         float: left;
-        margin-right: 1.0em;
         margin-bottom: 0;
-    }
-
-    .tvshow-content {
-        float: left;
     }
 }

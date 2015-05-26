@@ -27,14 +27,14 @@
     var shows_cache = {};
 
     // html templates
-    var synopsis_tmpl = '<img class="tvshow-img" src="<%imgurl%>" ' +
-            'alt="<%alt%> poster"/>' +
-        '<div class="tvshow-content">' +
-            '<p><dfn>Title:</dfn> <%title%></p>' +
-            '<p><dfn>Created by:</dfn> <%creator%></p>' +
-            '<p><dfn>Genres:</dfn> <%genres%></p>' +
-        '</div>' +
-        '<p class="left clear"><dfn>Synopsis:</dfn> <%synopsis%></p>';
+    var synopsis_tmpl = '' +
+        '<img class="tvshow-img" src="<%imgurl%>" alt="<%alt%> poster"/>' +
+        '<dl class="tvshow-content">' +
+            '<dt>Title</dt><dd><%title%></dd>' +
+            '<dt>Created by</dt><dd><%creator%></dd>' +
+            '<dt>Genres</dt><dd><%genres%></dd>' +
+            '<dt>Synopsis</dt><dd><%synopsis%></dd>' +
+        '</dl>';
     var err_tmpl = 'Error encountered while processing the response';
 
     // default options for table ajax requests
