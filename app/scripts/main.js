@@ -6,28 +6,27 @@
 
     // themoviedb.org api parameters
     // API documentation can be found at: http://docs.themoviedb.apiary.io
-    var api_key = 'YOUR_API_KEY';
-    var api_url = 'http://api.themoviedb.org/3';
-    var img_size = 'w154'; // ['w92','w154','w185','w342','w500','original'];
-    var img_url = 'http://image.tmdb.org/t/p/' + img_size;
+    var apiKey = 'YOUR_API_KEY';
+    var apiUrl = 'http://api.themoviedb.org/3';
+    var imgSize = 'w154'; // ['w92','w154','w185','w342','w500','original'];
+    var imgUrl = 'http://image.tmdb.org/t/p/' + imgSize;
     var urls = {
-        search: api_url + '/search/tv',
-        popular:  api_url + '/tv/popular',
-        top_rated:  api_url + '/tv/top_rated',
-        tv_show: api_url + '/tv/'
+        search: apiUrl + '/search/tv',
+        popular:  apiUrl + '/tv/popular',
+        tvShow: apiUrl + '/tv/'
     };
 
     // control the current page displayed and the total pages available
     var pagination = {
-        current_page: 1,
-        total_pages: 1
+        currentPage: 1,
+        totalPages: 1
     };
 
     // object used to cache TvShowSynopsis elements
-    var shows_cache = {};
+    var showsCache = {};
 
     // html templates
-    var synopsis_tmpl = '' +
+    var synopsisHtml = '' +
         '<img class="tvshow-img" src="<%imgurl%>" alt="<%alt%> poster"/>' +
         '<dl class="tvshow-content">' +
             '<dt>Title</dt><dd><%title%></dd>' +
@@ -35,12 +34,13 @@
             '<dt>Genres</dt><dd><%genres%></dd>' +
             '<dt>Synopsis</dt><dd><%synopsis%></dd>' +
         '</dl>';
-    var err_tmpl = 'Error encountered while processing the response';
+    var errorMessageHtml = 'Error encountered while processing the response';
+    var loadingHtml = 'Loading...';
 
     // default options for table ajax requests
-    var req_opts = {
+    var requestOptions = {
         url: urls.popular,
-        data: {api_key: api_key},
+        data: {api_key: apiKey},
         beforeSend: showLoading,
         success: displayShows,
         error: requestError,
@@ -71,7 +71,7 @@
          * @param  {object} data ajax response or undefined if previous call
          */
         display: function (data) {
-            var createdby, genres, image, html;
+            var createdBy, genres, image, html;
 
             // load detached if we have it
             if (this.detached !== null) {
@@ -85,7 +85,7 @@
             }
 
             // map the arrays
-            createdby = $.map(data.created_by, function (author) {
+            createdBy = $.map(data.created_by, function (author) {
                 return author.name;
             });
             genres = $.map(data.genres, function (genre) {
@@ -94,14 +94,14 @@
 
             // set the default image when no image provided
             image = typeof data.poster_path === 'string' ?
-                img_url + data.poster_path : 'images/noimage.jpg';
+                imgUrl + data.poster_path : 'images/noimage.jpg';
 
             // generate html from the template
-            html = synopsis_tmpl
+            html = synopsisHtml
                 .replace(/<%imgurl%>/, image)
                 .replace(/<%alt%>/, data.name)
                 .replace(/<%title%>/, data.name)
-                .replace(/<%creator%>/, createdby.join(', '))
+                .replace(/<%creator%>/, createdBy.join(', '))
                 .replace(/<%genres%>/, genres.join(', '))
                 .replace(/<%synopsis%>/, data.overview);
 
@@ -118,21 +118,21 @@
          * Display loading information to the user while performing the request
          */
         _showLoading: function () {
-            this.$obj.html('Loading...');
+            this.$obj.html(loadingHtml);
         },
         /**
          * Show an error message when request fails
          */
         _displayError: function () {
-            this.$obj.html(err_tmpl);
+            this.$obj.html(errorMessageHtml);
         },
         /**
          * Server request for this tv show
          */
         _request: function () {
             $.ajax({
-                url: urls.tv_show + this.id,
-                data: {api_key: api_key},
+                url: urls.tvShow + this.id,
+                data: {api_key: apiKey},
                 beforeSend: this._showLoading,
                 success: this.display,
                 error: this._displayError,
@@ -152,7 +152,7 @@
      * Shows a loading text to the user while a request is ongoing
      */
     function showLoading() {
-        $infoObj.html('Loading...');
+        $infoObj.html(loadingHtml);
     }
 
     /**
@@ -194,9 +194,9 @@
      * search get empty
      */
     function loadPopular() {
-        req_opts.url = urls.popular;
-        req_opts.data = {api_key: api_key};
-        $.ajax(req_opts);
+        requestOptions.url = urls.popular;
+        requestOptions.data = {api_key: apiKey};
+        $.ajax(requestOptions);
     }
 
     /**
@@ -208,7 +208,7 @@
      * @param  {string} errorThrown
      */
     function requestError(jqXHR, textStatus, errorThrown) {
-        var html = typeof jqXHR === 'string' ? jqXHR : err_tmpl;
+        var html = typeof jqXHR === 'string' ? jqXHR : errorMessageHtml;
 
         $tableObj.find('tbody').html('<tr><td>' + html + '</td></tr>');
         $tableObj.find('thead, tfoot').hide();
@@ -222,16 +222,16 @@
      * @return {[type]}      [description]
      */
     function displayShows(data) {
-        var html = '', total_received = 0;
+        var html = '', totalResultsReceived = 0;
 
         // detect failures
         if (data === undefined || !(data.results instanceof Array)) {
             return requestError('Invalid response received');
         }
 
-        total_received = data.results.length;
+        totalResultsReceived = data.results.length;
 
-        if (total_received === 0)
+        if (totalResultsReceived === 0)
             return requestError('No elements found');
 
         $tableObj.find('thead, tfoot').show();
@@ -243,10 +243,10 @@
         });
         $tableObj.find('tbody').html(html);
 
-        pagination.current_page = data.page;
-        pagination.total_pages = data.total_pages;
+        pagination.currentPage = data.page;
+        pagination.totalPages = data.total_pages;
 
-        showInfo(total_received, data.page, data.total_results);
+        showInfo(totalResultsReceived, data.page, data.total_results);
     }
 
     /**************************************************************************
@@ -265,9 +265,9 @@
             return loadPopular();
         }
 
-        req_opts.url = urls.search;
-        req_opts.data = {api_key: api_key, query: q, search_type: 'ngram'};
-        $.ajax(req_opts);
+        requestOptions.url = urls.search;
+        requestOptions.data = {api_key: apiKey, query: q, search_type: 'ngram'};
+        $.ajax(requestOptions);
     }
 
     /**
@@ -278,17 +278,17 @@
     function onClickChangePage(e) {
         /*jshint validthis:true */
         var dir = $(this).data('direction');
-        var dest_page = pagination.current_page;
+        var destinationPage = pagination.currentPage;
 
-        dest_page += dir === 'prev' ? -1 : +1;
+        destinationPage += dir === 'prev' ? -1 : +1;
 
-        if (dest_page >= 1 && dest_page <= pagination.total_pages) {
-            req_opts.data.page = dest_page;
+        if (destinationPage >= 1 && destinationPage <= pagination.totalPages) {
+            requestOptions.data.page = destinationPage;
             // remove property page if equals one, it's the same request
-            if(dest_page === 1) {
-                delete req_opts.data.page;
+            if(destinationPage === 1) {
+                delete requestOptions.data.page;
             }
-            $.ajax(req_opts);
+            $.ajax(requestOptions);
         }
 
         e.preventDefault();
@@ -305,10 +305,10 @@
 
         showSynopsis();
 
-        if (shows_cache[id] !== undefined) {
-            shows_cache[id].display();
+        if (showsCache[id] !== undefined) {
+            showsCache[id].display();
         } else {
-            shows_cache[id] = new TvShowSynopsis(id, $synopsisObj);
+            showsCache[id] = new TvShowSynopsis(id, $synopsisObj);
         }
 
         e.preventDefault();
@@ -323,7 +323,7 @@
         var id = $synopsisObj.data('id');
 
         if (id !== undefined) {
-            shows_cache[id].detach();
+            showsCache[id].detach();
         }
 
         showList();
