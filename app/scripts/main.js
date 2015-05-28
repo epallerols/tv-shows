@@ -27,13 +27,13 @@
 
     // html templates
     var synopsisHtml = '' +
-        '<img class="tvshow-img" src="<%imgurl%>" alt="<%alt%> poster"/>' +
         '<dl class="tvshow-content">' +
             '<dt>Title</dt><dd><%title%></dd>' +
             '<dt>Created by</dt><dd><%creator%></dd>' +
             '<dt>Genres</dt><dd><%genres%></dd>' +
             '<dt>Synopsis</dt><dd><%synopsis%></dd>' +
         '</dl>';
+    var imageHtml = '<img class="tvshow-img" src="<%imgurl%>" alt="<%alt%> poster">';
     var errorMessageHtml = 'Error encountered while processing the response';
     var loadingHtml = 'Loading...';
 
@@ -71,7 +71,8 @@
          * @param  {object} data ajax response or undefined if previous call
          */
         display: function (data) {
-            var createdBy, genres, image, html;
+            var createdBy, genres, image;
+            var html = '';
 
             // load detached if we have it
             if (this.detached !== null) {
@@ -92,13 +93,13 @@
                 return genre.name;
             });
 
-            // set the default image when no image provided
-            image = typeof data.poster_path === 'string' ?
-                imgUrl + data.poster_path : 'images/noimage.jpg';
-
             // generate html from the template
-            html = synopsisHtml
-                .replace(/<%imgurl%>/, image)
+            if (typeof data.poster_path === 'string') {
+                image = imgUrl + data.poster_path;
+                html = imageHtml.replace(/<%imgurl%>/, image);
+            }
+
+            html += synopsisHtml
                 .replace(/<%alt%>/, data.name)
                 .replace(/<%title%>/, data.name)
                 .replace(/<%creator%>/, createdBy.join(', '))
