@@ -13,6 +13,13 @@ module.exports = function(grunt) {
                 dest: 'build/index.html'
             }
         },
+        babel: {
+            js: {
+                files: {
+                    '.tmp/scripts/main.js': 'app/scripts/main.js'
+                }
+            }
+        },
         wiredep: {
             html: {
                 src: 'build/index.html'
@@ -42,6 +49,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         'clean:pre',
         'copy',
+        'babel',
         'wiredep',
         'useminPrepare',
         'concat',
